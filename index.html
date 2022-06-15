@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.13.0/Sortable.min.js"></script>
+  <title>Frontend Mentor | Todo app</title>
+  <link rel="stylesheet" href="./styles.css">
+ 
+</head>
+<body>
+  
+  <div class="container">
+    <h1>Todo <div id="darkModeToggle"></div></h1>
+    
+    <div class="todo__container">
+      <div class="input__field">
+        <form>
+          <span class="custom_checkbox"></span>
+          <input id="task-input" type="text" placeholder="create a new todo...">
+        </form>
+      </div>
+      
+      <div id="todo-list"></div>
+
+      <div class="indicators">
+        <div><span class="active-counter">0</span> items left</div>
+        <div class="filters desktop-filter">
+          <button class="all btn" data-filter="all">All</button>
+          <button class="btn" data-filter="active">Active</button>
+          <button class="btn" data-filter="completed">Completed</button>
+        </div>
+        <button id="clear-completed" class="btn">Clear Completed</button>
+      </div>
+
+      <div class="filters mobile-filter">
+        <button class="all btn" data-filter="all">All</button>
+        <button class="btn" data-filter="active">Active</button>
+        <button class="btn" data-filter="completed">Completed</button>
+      </div>
+
+      <div class="drag">
+        Drag and drop to reorder list
+      </div>
+    </div>
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+      Coded by <a href="https://www.github.com/sharonBenish">Sharon Benish-Williams</a>.
+    </div>
+  </div>
+
+
+  <script src="./app/darkMode.js"></script>
+  <script src="./app/script.js"></script>
+</body>
+</html>
