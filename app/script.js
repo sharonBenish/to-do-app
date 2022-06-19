@@ -9,7 +9,10 @@ let tasks=JSON.parse(localStorage.getItem("tasks"))||[];
 
 if (tasks){
     tasks.forEach(task => {
-        addToDOM(task)
+        addToDOM(task);
+        if (task.completed){
+            updateCount(-1);
+        }
     })
 }
 
@@ -40,8 +43,9 @@ function addToDOM(entry){
 </div>`
 
     todoList.innerHTML += el;
-    updateChecks()
+    
     updateCount(1);
+    updateChecks();
 }
 
 function deleteItem(el){
@@ -53,10 +57,11 @@ todoList.addEventListener("click", (e)=>{
     if (key.classList.contains("delete-icon")){
         console.log(key.dataset.uniqid)
         tasks = tasks.filter( task=> task.id != key.dataset.uniqid);
-        updateLocal();
+        
         console.log(tasks);
         const taskItem = key.parentElement.parentElement;
         deleteItem(taskItem);
+        updateLocal();
         if (taskItem.dataset.completed == "false"){
             updateCount(-1)
         }
