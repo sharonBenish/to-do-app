@@ -5,7 +5,14 @@ const filters = document.querySelectorAll(".filters");
 const clearBtn = document.getElementById("clear-completed");
 const count = document.querySelector(".active-counter");
 
-let tasks=[];
+let tasks=JSON.parse(localStorage.getItem("tasks"))||[];
+
+if (tasks){
+    tasks.forEach(task => {
+        addToDOM(task)
+    })
+}
+
 form.addEventListener("submit", (e)=>{
     e.preventDefault();
 
@@ -21,6 +28,7 @@ form.addEventListener("submit", (e)=>{
 
 function addToArray(entry){
     tasks.push(entry);
+    updateLocal();
     console.log(tasks)
 }
 
@@ -45,6 +53,7 @@ todoList.addEventListener("click", (e)=>{
     if (key.classList.contains("delete-icon")){
         console.log(key.dataset.uniqid)
         tasks = tasks.filter( task=> task.id != key.dataset.uniqid);
+        updateLocal();
         console.log(tasks);
         const taskItem = key.parentElement.parentElement;
         deleteItem(taskItem);
@@ -65,11 +74,13 @@ todoList.addEventListener("click", (e)=>{
             checkbox.checked =false;
             parent.dataset.completed = false;
             tasks[idx].completed= false;
+            updateLocal();
             updateCount(1);
         }else{
             checkbox.checked = true;
             parent.dataset.completed = true;
             tasks[idx].completed = true;
+            updateLocal();
             updateCount(-1)
         }
        
@@ -85,11 +96,13 @@ todoList.addEventListener("click", (e)=>{
             updateCount(-1);
             key.parentElement.dataset.completed = true;
             tasks[idx].completed = true;
+            updateLocal();
             console.log(tasks)
         }else{
             updateCount(1);
             key.parentElement.dataset.completed = false;
             tasks[idx].completed= false;
+            updateLocal();
             console.log(tasks)
         }
     }
@@ -149,6 +162,7 @@ clearBtn.addEventListener("click", ()=>{
         if (item.dataset.completed == "true"){
             deleteItem(item);
             tasks = tasks.filter(task => task.id != item.dataset.uniqid)
+            updateLocal();
             console.log(tasks)
         }
     }
@@ -162,3 +176,7 @@ const dragArea = document.getElementById('todo-list');
         swapClass: 'dragging', // The class applied to the hovered swap item
         animation: 150
     });
+
+function updateLocal(){
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+}
